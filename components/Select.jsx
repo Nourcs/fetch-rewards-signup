@@ -68,6 +68,7 @@ function Select({
             value={option.name}
             onChange={(e) => handleSearch(e.target.value)}
             onFocus={() => setShowOptions(true)}
+            autocomplete="off"
           />
           <button
             type="button"

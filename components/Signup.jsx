@@ -9,6 +9,7 @@ import { isEmpty } from 'lodash';
 import { useAppContext } from '../context/state';
 import { auth } from '../utils/firebase';
 import Requirements from './Requirements';
+import Google from '../public/logo/google'
 
 const PASSWORD_REQUIREMENTS = [
   { value: 'length', text: 'MUST contain at least 8 characters (12+ recommended)' },
@@ -134,9 +135,10 @@ function SignupForm({ setStep, info, setInfo }) {
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </h3>
       <div className="mt-5">
-        <button type="button" className="btn-light h-12 text-sm" onClick={() => onAuthClick()}>
+        <button type="button" className="btn-light h-12 text-sm group" onClick={() => onAuthClick()}>
           <div className="mr-3 shrink-0">
-            <img src="/logo/google.png" className="h-4 w-4" alt="Google" />
+            {/* <img src="/logo/google.png" className="h-4 w-4" alt="Google" /> */}
+            <Google className='h-4 fill-dark-900 group-hover:fill-dark-100 transition duration-150 ease-in-out'/>
           </div>
           Sign up with Google
         </button>

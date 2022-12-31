@@ -44,8 +44,6 @@ export default function Home({ occupations, states }) {
     }
   }, [user]);
 
-  console.log(user, info, cookies);
-
   if (user === null || !isEmpty(cookies.user)) {
     return <div className="h-screen w-screen flex items-center justify-center">Loading...</div>;
   }
@@ -75,7 +73,7 @@ export default function Home({ occupations, states }) {
         <div
           className="h-full w-full bg-cover bg-center rounded-tl-3xl"
           style={{
-            backgroundImage: 'url("https://images.unsplash.com/photo-1498758536662-35b82cd15e29?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3088&q=80")',
+            backgroundImage: 'url("/placeholder.jpg")',
           }}
         />
       </section>
