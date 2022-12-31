@@ -1,30 +1,19 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/forbid-prop-types */
 import React, { useRef, useState } from 'react';
-import { ChevronDown, ChevronUp } from 'react-feather';
-import OutsideClickHandler from 'react-outside-click-handler';
+import { ChevronUp, ChevronDown } from 'react-feather';
 import PropTypes from 'prop-types';
+import OutsideClickHandler from 'react-outside-click-handler';
 import { isEmpty } from 'lodash';
 
 function Select({
-  options, option, placeholder, setOption,
+  options, option, setOption, placeholder,
 }) {
-  // Handle Options Menu
   const [showOptions, setShowOptions] = useState(false);
-
-  // Filter Options
   const [filteredOptions, setFilteredOptions] = useState([...options]);
-
-  // Select input value on click for faster editing
   const inputRef = useRef(null);
 
-  const handleInputClick = () => {
-    setFilteredOptions([...options]);
-    inputRef.current.selectionStart = 0;
-  };
-
-  // Handle Search + Filter Options
   const handleSearch = (name) => {
     // Show options menu if it's not shown
     if (!showOptions) setShowOptions(true);
@@ -48,40 +37,36 @@ function Select({
     <OutsideClickHandler
       onOutsideClick={() => {
         setShowOptions(false);
-        const exist = options.find((el) => el.name.toLowerCase() === option.name.toLowerCase());
-        if (!isEmpty(exist)) {
-          setOption(exist);
-        } else {
+
+        if (!option.value) {
           setOption({ name: '', value: '' });
         }
       }}
     >
       <div className="relative">
-        <label className="relative" htmlFor={`select_${placeholder.split(' ').filter((item) => item).join('_').toLowerCase()}`}>
+        <label
+          onFocus={() => {
+            setFilteredOptions([...options]);
+            setShowOptions(true);
+            inputRef.current.selectionStart = 0;
+            inputRef.current.selectionEnd = option.name.length;
+          }}
+          className="h-10 w-full bg-white flex items-center relative border border-dark-300 rounded-md"
+          htmlFor={`select_${placeholder.split(' ').filter((item) => item).join('_').toLowerCase()}`}
+        >
           <input
-            id={`select_${placeholder.split(' ').filter((item) => item).join('_').toLowerCase()}`}
-            onClick={() => handleInputClick()}
             ref={inputRef}
             type="text"
-            className="custom-form text-left flex items-center justify-between"
             placeholder={placeholder}
+            className="h-10 flex-1 px-3 pr-10 text-sm bg-transparent"
+            id={`select_${placeholder.split(' ').filter((item) => item).join('_').toLowerCase()}`}
+            autoComplete="off"
             value={option.name}
             onChange={(e) => handleSearch(e.target.value)}
-            onFocus={() => setShowOptions(true)}
-            autocomplete="off"
           />
-          <button
-            type="button"
-            className="absolute top-3 right-3"
-            onClick={() => {
-              setShowOptions(!showOptions);
-              if (!option.value) {
-                setOption({ name: '', value: '' });
-              }
-            }}
-          >
+          <div className="absolute right-3">
             {showOptions ? (<ChevronUp className="h-4 w-4" />) : (<ChevronDown className="h-4 w-4" />)}
-          </button>
+          </div>
         </label>
         {showOptions && (
         <ul className="w-full bg-white absolute z-10 drop-shadow-md rounded-md mt-2 py-2 max-h-40 overflow-y-auto">

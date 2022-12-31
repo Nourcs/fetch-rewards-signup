@@ -1,16 +1,19 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/jsx-no-constructed-context-values */
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { SnackbarProvider } from 'notistack';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../utils/firebase';
-import AppContext from '../context/state';
-import '../styles/globals.css';
 import { CookiesProvider, useCookies } from 'react-cookie';
 import { isEmpty } from 'lodash';
+import AppContext from '../context/state';
+import { auth } from '../utils/firebase';
+import '../styles/globals.css';
 
 export default function App({ Component, pageProps }) {
   // Listen to User Change
   const [user, setUser] = useState(null);
-  const [cookies, setCookie] = useCookies(['user']);
+  const [cookies] = useCookies(['user']);
 
   useEffect(() => {
     onAuthStateChanged(auth, (result) => {

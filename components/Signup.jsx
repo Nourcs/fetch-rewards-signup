@@ -137,7 +137,6 @@ function SignupForm({ setStep, info, setInfo }) {
       <div className="mt-5">
         <button type="button" className="btn-light h-12 text-sm group" onClick={() => onAuthClick()}>
           <div className="mr-3 shrink-0">
-            {/* <img src="/logo/google.png" className="h-4 w-4" alt="Google" /> */}
             <Google className='h-4 fill-dark-900 group-hover:fill-dark-100 transition duration-150 ease-in-out'/>
           </div>
           Sign up with Google
